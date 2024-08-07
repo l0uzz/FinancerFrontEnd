@@ -1,11 +1,11 @@
 //import { useState } from 'react'
-import axios from "axios";
 import "../styles/global.css";
 import ResultForm from "./ResultForm";
 import { SetStateAction, useState } from "react"; // import para criação de fluxos (estados de tela)
 import { ArrowRight } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../api/api";
 
 export interface formEmptyParams {
   id: number;
@@ -30,16 +30,13 @@ export default function FormEmp() {
 
   const create = async () => {
     try {
-      const response = await axios.post(
-        "https://financerbackend.onrender.com/createUserBeforeLending",
-        {
-          cpf,
-          uf,
-          dataNascimento,
-          valorEmprestimo,
-          valorPagoPorMes,
-        }
-      );
+      const response = await api.post("/createUserBeforeLending", {
+        cpf,
+        uf,
+        dataNascimento,
+        valorEmprestimo,
+        valorPagoPorMes,
+      });
 
       const { lending }: { lending: formEmptyParams } = response.data;
 
